@@ -31,7 +31,6 @@ def deploy():
         parses the json POST request
     """
     if not request.json:
-        print_json(request.json)
         print("ERROR: Hmm, Are you sure you passed a json ?")
         return make_response(jsonify({'error': 'Bad Request'}), 400)
     else:
