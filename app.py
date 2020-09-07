@@ -33,7 +33,7 @@ def deploy():
     if not request.json:
         print_json(request.json)
         print("ERROR: Hmm, Are you sure you passed a json ?")
-        return "ERROR: Hmm, Are you sure you passed a json ?"
+        return make_response(jsonify({'error': 'Bad Request'}), 400)
     else:
         testParser(request.json)
         return "Okay, cool!"
