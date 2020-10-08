@@ -3,11 +3,13 @@ import json, requests, os
 LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT", "https://eu.leanix.net/services/integration-api")
 LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN", "zQQEvgNLKmgNdLygWr9EcvtXUv8LOdYzySxgY9C7")
 
+# Class that uses BearerAuth
 class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
         self.token = token
     def __call__(self, r):
         r.headers["authorization"] = "Bearer " + self.token
+        r.headers["Content-Type"] = "application/json"
         return r
 
 def print_json(json_object):
