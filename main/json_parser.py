@@ -23,6 +23,7 @@ def getJWTToken():
     data={
         "grant_type":"client_credentials"
     }
+    print("Generating JWT Token...")
     post_response = requests.post(url=TOKEN_GEN_ENDPOINT, data=data, auth=('apitoken',LIX_API_TOKEN))
     if post_response.status_code == 200:
         print("Everything looks good!")
@@ -31,6 +32,9 @@ def getJWTToken():
         return None
     response_json = post_response.json
     print(response_json)
+    print("##DEBUG")
+    print("ACCESS_TOKEN: " + response_json["access_token"])
+    print("Done...")
     return str(response_json["access_token"])
 
 def postDeployMetric(deploy_point):
@@ -48,6 +52,7 @@ def postDeployMetric(deploy_point):
             print("Everything looks good!")
         response_json = post_response.json
         print(response_json)
+        print("Processing Done...")
         #TODO add wait until it successfully posts, poll for sync run using ID
     except Exception as error:
         print ("Oops! An exception has occured:", error)
@@ -92,7 +97,6 @@ def testParser(json_object):
                     ]
                 }
             print_json(deploy_point)
-            print("Posting the Deployment LDIF...")
             postDeployMetric(deploy_point)
             # aggregating that into a file for now
             # with open('./data/aggregation.json', 'r+') as file:
