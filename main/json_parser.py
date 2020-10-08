@@ -30,7 +30,7 @@ def getJWTToken():
     else:
         print("Something went wrong!")
         return None
-    response_json = post_response.json
+    response_json = post_response.json()
     print(response_json)
     print("##DEBUG")
     print("ACCESS_TOKEN: " + response_json["access_token"])
@@ -50,7 +50,7 @@ def postDeployMetric(deploy_point):
         print("Posted!")
         if post_response.status_code == 200:
             print("Everything looks good!")
-        response_json = post_response.json
+        response_json = post_response.json()
         print(response_json)
         print("Processing Done...")
         #TODO add wait until it successfully posts, poll for sync run using ID
