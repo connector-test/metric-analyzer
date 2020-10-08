@@ -1,7 +1,7 @@
 {
     "connectorId": "leanix-deployment-connector",
     "connectorType": "leanix",
-    "connectorVersion": "1.0",
+    "connectorVersion": "1.0.0",
     "processingDirection": "inbound",
     "processingMode": "partial",
     "lxVersion": "1.0.0",
