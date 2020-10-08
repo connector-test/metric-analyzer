@@ -3,6 +3,13 @@ import json, requests, os
 LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT", "https://eu.leanix.net/services/integration-api")
 LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN", "zQQEvgNLKmgNdLygWr9EcvtXUv8LOdYzySxgY9C7")
 
+class BearerAuth(requests.auth.AuthBase):
+    def __init__(self, token):
+        self.token = token
+    def __call__(self, r):
+        r.headers["authorization"] = "Bearer " + self.token
+        return r
+
 def print_json(json_object):
     """
         pretty printing json
@@ -15,15 +22,12 @@ def postDeployMetric(deploy_point):
         Calls the LEAN IX Synchronization Run 
     """
     LIX_SYNC_ENDPOINT = LIX_API_ENDPOINT + "/v1/synchronizationRuns"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization" : "Bearer " + LIX_API_TOKEN
-    }
     try:
         print("Calling " + str(LIX_SYNC_ENDPOINT))
-        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, headers=headers)
+        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, auth=BearerAuth(LIX_API_TOKEN))
         print("Posted!")
-        print(json.dumps(post_response.json, indent=2))
+        response_json = post_response.json
+        print(response_json, indent=2)
         #TODO add wait until it successfully posts, poll for sync run using ID
     except Exception as error:
         print ("Oops! An exception has occured:", error)
