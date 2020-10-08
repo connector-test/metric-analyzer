@@ -9,7 +9,7 @@ class BearerAuth(requests.auth.AuthBase):
     def __init__(self, token):
         self.token = token
     def __call__(self, r):
-        r.headers["authorization"] = "Bearer " + self.token
+        r.headers["Authorization"] = "Bearer " + self.token
         r.headers["Content-Type"] = "application/json"
         return r
 
@@ -47,7 +47,7 @@ def postDeployMetric(deploy_point):
         print("Calling " + str(LIX_SYNC_ENDPOINT))
         JWT_TOKEN = getJWTToken()
         post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=json.dumps(deploy_point), auth=BearerAuth(JWT_TOKEN))
-        print("Posted!")
+        print("Posted!, CODE: " + str(post_response.status_code))
         if post_response.status_code == 200:
             print("Everything looks good!")
         response_json = post_response.json()
