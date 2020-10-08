@@ -2,6 +2,7 @@ import json, requests, os
 
 LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT", "https://eu.leanix.net/services/integration-api")
 LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN", "zQQEvgNLKmgNdLygWr9EcvtXUv8LOdYzySxgY9C7")
+TOKEN_GEN_ENDPOINT="https://app.leanix.net/services/mtm/v1/oauth2/token"
 
 # Class that uses BearerAuth
 class BearerAuth(requests.auth.AuthBase):
@@ -18,6 +19,20 @@ def print_json(json_object):
     """
     print(json.dumps(json_object, indent=2)) 
 
+def getJWTToken():
+    data={
+        "grant_type":"client_credentials"
+    }
+    post_response = requests.post(url=TOKEN_GEN_ENDPOINT, data=data, auth=('apitoken',LIX_API_TOKEN))
+    if post_response.status_code == 200:
+        print("Everything looks good!")
+    else:
+        print("Something went wrong!")
+        return None
+    response_json = post_response.json
+    print(response_json)
+    return str(response_json["access_token"])
+
 def postDeployMetric(deploy_point):
     """
         Takes in a deploy_point of type dict/hashmap
@@ -26,8 +41,11 @@ def postDeployMetric(deploy_point):
     LIX_SYNC_ENDPOINT = LIX_API_ENDPOINT + "/v1/synchronizationRuns"
     try:
         print("Calling " + str(LIX_SYNC_ENDPOINT))
-        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, auth=BearerAuth(LIX_API_TOKEN))
+        JWT_TOKEN = getJWTToken()
+        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, auth=BearerAuth(JWT_TOKEN))
         print("Posted!")
+        if post_response.status_code == 200:
+            print("Everything looks good!")
         response_json = post_response.json
         print(response_json)
         #TODO add wait until it successfully posts, poll for sync run using ID
