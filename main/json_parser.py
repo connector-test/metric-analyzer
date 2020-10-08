@@ -23,7 +23,7 @@ def postDeployMetric(deploy_point):
         print("Calling " + str(LIX_SYNC_ENDPOINT))
         post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, headers=headers)
         print("Posted!")
-        print(post_response.json)
+        print(json.dumps(post_response.json, indent=2))
         #TODO add wait until it successfully posts, poll for sync run using ID
     except Exception as error:
         print ("Oops! An exception has occured:", error)
