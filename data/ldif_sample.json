@@ -8,11 +8,11 @@
     "description": "DeploymentFrequency Metric",
     "content": [
         {
-            "id": repo_name,
+            "id": "Deployment Frequency",
             "type": "microservice",
             "data": {
-                "name": repo_name,
-                "deploymentTime": timestamp
+                "name": "app-alpha",
+                "deploymentTime": "2020-07-14T07:15:00.544Z"
             }
         }
     ]
