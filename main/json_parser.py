@@ -24,7 +24,7 @@ def getJWTToken():
         "grant_type":"client_credentials"
     }
     print("Generating JWT Token...")
-    post_response = requests.post(url=TOKEN_GEN_ENDPOINT, data=data, auth=('apitoken',LIX_API_TOKEN))
+    post_response = requests.post(url=TOKEN_GEN_ENDPOINT, data=data, auth=('apitoken',LIX_API_TOKEN),)
     if post_response.status_code == 200:
         print("Everything looks good!")
     else:
@@ -46,7 +46,7 @@ def postDeployMetric(deploy_point):
     try:
         print("Calling " + str(LIX_SYNC_ENDPOINT))
         JWT_TOKEN = getJWTToken()
-        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, auth=BearerAuth(JWT_TOKEN))
+        post_response = requests.post(url=LIX_SYNC_ENDPOINT, json=json.dumps(deploy_point), auth=BearerAuth(JWT_TOKEN))
         print("Posted!")
         if post_response.status_code == 200:
             print("Everything looks good!")
