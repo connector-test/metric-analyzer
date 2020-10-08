@@ -87,7 +87,7 @@ def testParser(json_object):
                     "description": "DeploymentFrequency Metric",
                     "content": [
                         {
-                            "id": repo_name,
+                            "id": "Deployment Frequency",
                             "type": "microservice",
                             "data": {
                                 "name": repo_name,
