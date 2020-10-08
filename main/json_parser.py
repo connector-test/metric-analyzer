@@ -22,8 +22,7 @@ def getJWTToken():
         response = requests.post(url=LIX_API_TOKEN_GEN_ENDPOINT, data=payload, auth=('apitoken', LIX_API_TOKEN))
         response.raise_for_status() 
         access_token = response.json()['access_token']
-        print("##DEBUG")
-        print("ACCESS_TOKEN: " + access_token)
+        print("Access Token generates su")
         print("Done...")
     except Exception as error:
         access_token = None
@@ -50,12 +49,6 @@ def postDeployMetric(deploy_point):
         response = requests.post(url=LIX_SYNC_ENDPOINT, headers=headers, data=json_payload)
         print("Posted!, STATUS CODE: " + str(response.status_code))
         response.raise_for_status()
-        # some general status code handling 
-        if response.status_code in (200, 201, 202):
-            print("Looks like everything is fine...")
-        else:
-            print("Looks like something went wrong...")
-            raise requests.HTTPError()
         print(response.json())
         print("Processing Done...")
     except Exception as error:
