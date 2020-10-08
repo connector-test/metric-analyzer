@@ -46,7 +46,7 @@ def postDeployMetric(deploy_point):
     try:
         print("Calling " + str(LIX_SYNC_ENDPOINT))
         JWT_TOKEN = getJWTToken()
-        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=deploy_point, auth=BearerAuth(JWT_TOKEN))
+        post_response = requests.post(url=LIX_SYNC_ENDPOINT, data=json.dumps(deploy_point), auth=BearerAuth(JWT_TOKEN))
         print("Posted!")
         if post_response.status_code == 200:
             print("Everything looks good!")
@@ -90,8 +90,8 @@ def testParser(json_object):
                             "id": "Deployment Frequency",
                             "type": "microservice",
                             "data": {
-                                "name": repo_name,
-                                "deploymentTime": timestamp
+                                "name": json.dumps(repo_name),
+                                "deploymentTime": json.dumps(timestamp)
                             }
                         }
                     ]
