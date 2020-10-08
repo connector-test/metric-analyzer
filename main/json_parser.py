@@ -1,6 +1,6 @@
 import json, requests, os
 # BASE URLS
-LIX_BASE_URL = "https://app.leanix.net/services"
+LIX_BASE_URL = "https://demo-eu.leanix.net/services"
 LIX_API_TOKEN_GEN_ENDPOINT = LIX_BASE_URL + "/mtm/v1/oauth2/token"
 LIX_SYNC_ENDPOINT = LIX_BASE_URL + "/integration-api/v1/synchronizationRuns"
 
@@ -22,7 +22,7 @@ def getJWTToken():
         response = requests.post(url=LIX_API_TOKEN_GEN_ENDPOINT, data=payload, auth=('apitoken', LIX_API_TOKEN))
         response.raise_for_status() 
         access_token = response.json()['access_token']
-        print("Access Token generates su")
+        print("Access Token generated!")
         print("Done...")
     except Exception as error:
         access_token = None
