@@ -5,8 +5,8 @@ LIX_API_TOKEN_GEN_ENDPOINT = LIX_BASE_URL + "/mtm/v1/oauth2/token"
 LIX_SYNC_ENDPOINT = LIX_BASE_URL + "/integration-api/v1/synchronizationRuns"
 
 # OS ENV Vars
-LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN", "zQQEvgNLKmgNdLygWr9EcvtXUv8LOdYzySxgY9C7")
-LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT", LIX_BASE_URL + "/integration-api")
+LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN")
+LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT")
 
 def print_json(json_object):
     """
