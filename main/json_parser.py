@@ -5,7 +5,7 @@ LIX_API_TOKEN_GEN_ENDPOINT = LIX_BASE_URL + "/mtm/v1/oauth2/token"
 LIX_SYNC_ENDPOINT = LIX_BASE_URL + "/integration-api/v1/synchronizationRuns"
 
 # OS ENV Vars
-LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN")
+LIX_API_TOKEN = os.environ.get("LIX_API_TOKEN", "zQQEvgNLKmgNdLygWr9EcvtXUv8LOdYzySxgY9C7")
 LIX_API_ENDPOINT = os.environ.get("LIX_API_ENDPOINT", LIX_BASE_URL + "/integration-api")
 
 def print_json(json_object):
@@ -70,10 +70,9 @@ def startSyncRun(sync_id, auth_token):
         }
         LIX_START_SYNC_ENDPOINT = LIX_SYNC_ENDPOINT + "/" + sync_id + "/start"
         print("Invoking " + LIX_START_SYNC_ENDPOINT )
-        response = requests.post(url=LIX_SYNC_ENDPOINT, headers=headers)
+        response = requests.post(url=LIX_START_SYNC_ENDPOINT, headers=headers)
         print("Posted!, STATUS CODE: " + str(response.status_code))
         response.raise_for_status()
-        print(response.json())
         print("Processing Done...")
     except Exception as error:
         print ("Oops! An exception has occured:", error)
